@@ -1,152 +1,231 @@
 # 🧠 AI DevOps Analyzer
 
-AI-powered log analysis tool that helps identify failures, root causes, and fixes from production logs.
+AI-powered log analysis platform that helps DevOps engineers identify failures, root causes, severity levels, and recommended fixes from application logs.
 
 ---
 
-## 🚀 What This Project Does
+## 🚀 Features
 
 * Upload application logs
-* Ask questions about logs
-* Get AI-based analysis:
-
-  * Summary
-  * Root cause
-  * Severity
-  * Fix suggestions
+* Semantic log search using vector embeddings
+* AI-powered root cause analysis
+* Severity assessment
+* Fix recommendations
+* FastAPI REST API
+* Interactive web interface
+* Docker support
+* Docker Compose support
+* GitHub Actions CI/CD pipeline
+* Docker Hub deployment
 
 ---
 
-## 🏗️ Tech Stack
+## 🏗️ Architecture
 
-* **Backend:** FastAPI
-* **LLM:** Groq (LLaMA 3)
-* **Embeddings:** Sentence Transformers
-* **Vector DB:** FAISS
-* **Frontend:** Custom HTML + JavaScript
+```text
+User
+ │
+ ▼
+Frontend (HTML + JavaScript)
+ │
+ ▼
+FastAPI Backend
+ │
+ ├── Log Ingestion
+ ├── Embedding Generation
+ ├── FAISS Vector Search
+ └── Groq LLM Analysis
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+* FastAPI
+* Uvicorn
+* Pydantic
+
+### AI / ML
+
+* Groq (LLaMA 3)
+* Sentence Transformers
+* FAISS
+
+### Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+### DevOps
+
+* Docker
+* Docker Compose
+* GitHub Actions
+* Docker Hub
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 ai-devops-analyzer/
-├── app/               # Backend logic
-├── frontend/          # UI
-├── logs/              # Sample logs
-├── .env               # Environment template
+│
+├── app/
+│   ├── main.py
+│   ├── ingestion.py
+│   ├── embedding.py
+│   ├── retrieval.py
+│   ├── db.py
+│   └── llm.py
+│
+├── frontend/
+│   └── index.html
+│
+├── logs/
+│
+├── .github/
+│   └── workflows/
+│
+├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
-├── README.md
+├── .env
+└── README.md
 ```
 
 ---
 
-## ⚙️ Setup Instructions (Step-by-Step)
+## ⚙️ Local Setup
 
-### 1️⃣ Clone the Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/your-username/ai-devops-analyzer.git
+
 cd ai-devops-analyzer
 ```
 
----
+### 2. Create Virtual Environment
 
-### 2️⃣ Create Virtual Environment
-
-#### 🖥️ Windows
+#### Windows
 
 ```bash
 python -m venv venv
+
 venv\Scripts\activate
 ```
 
-#### 🐧 Mac/Linux
+#### Linux / macOS
 
 ```bash
 python3 -m venv venv
+
 source venv/bin/activate
 ```
 
----
-
-### 3️⃣ Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### 4. Configure Environment Variables
 
-### 4️⃣ Setup Environment Variables
+Create a `.env` file in the project root:
 
-👉 Create a `.env` file in the root directory
-
-
-
-```text
-GROQ_API_KEY=your_api_key_here
+```env
+GROQ_API_KEY=your_groq_api_key
 ```
 
+### 5. Get a Groq API Key
 
-
-
-### 5️⃣ Get API Key (Groq)
-
-1. Go to: https://console.groq.com
-2. Create an API key
-3. Paste it into `.env`
+1. Create an account on Groq.
+2. Generate an API key.
+3. Add it to the `.env` file.
 
 ---
 
-### 6️⃣ Run the Application
+## ▶️ Run the Application
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
----
-
-### 7️⃣ Open in Browser
+Open:
 
 ```text
-http://127.0.0.1:8000
+http://localhost:8000
+```
+
+API Documentation:
+
+```text
+http://localhost:8000/docs
 ```
 
 ---
 
-## 🧪 How to Use
+## 🐳 Docker
 
-### Step 1 — Upload Logs
+### Build Image
 
-Paste logs into the UI and click **Upload Logs**
-
----
-
-### Step 2 — Ask Questions
-
-Try:
-
-```
-why did the service fail?
-what is the root cause?
-how to fix this issue?
+```bash
+docker build -t ai-devops-analyzer .
 ```
 
+### Run Container
+
+```bash
+docker run -p 8000:8000 --env-file .env ai-devops-analyzer
+```
+
+Open:
+
+```text
+http://localhost:8000
+```
+
 ---
 
-### Step 3 — Get AI Analysis
+## 🐳 Docker Compose
 
-You’ll get:
+### Start Application
 
-* Summary
-* Root Cause
-* Severity
-* Fix Suggestions
+```bash
+docker compose up --build
+```
+
+### Run in Background
+
+```bash
+docker compose up -d
+```
+
+### Stop Application
+
+```bash
+docker compose down
+```
 
 ---
 
-## 📄 Sample Logs (Try This)
+## 🔄 CI/CD Pipeline
+
+GitHub Actions automatically:
+
+1. Builds the Docker image
+2. Pushes the image to Docker Hub
+
+Triggered on:
+
+* Push to `main`
+
+---
+
+## 📄 Sample Logs
 
 ```text
 2026-04-23 10:02:49 ERROR [db] Connection timeout
@@ -157,48 +236,59 @@ You’ll get:
 
 ---
 
+## 💡 Example Questions
+
+```text
+Why did the service fail?
+
+What is the root cause?
+
+How can I fix this issue?
+
+What is the severity level?
+
+Summarize these logs.
+```
+
+---
+
 ## 🔐 Security
 
-* `.env` is ignored via `.gitignore`
-* API keys are NOT stored in code
-* Use `.env.example` as template
+* `.env` is excluded using `.gitignore`
+* API keys are never committed to source control
+* Environment variables are loaded securely
 
 ---
 
 ## ⚠️ Common Issues
 
-### ❌ GROQ_API_KEY not found
+### GROQ_API_KEY Not Found
 
-Fix:
+Ensure:
 
-* Ensure `.env` is in root folder
-* Restart server
+* `.env` exists in the project root
+* The API key is valid
+* The application is restarted after updating the `.env` file
 
----
+### First Run Is Slow
 
-### ❌ First run slow
-
-Reason:
-
-* Model download (one-time)
+The embedding model may need to download on the first run. Subsequent runs will be significantly faster.
 
 ---
 
-## 🚀 Future Improvements
+## 🚀 Future Enhancements
 
-* Docker support 🐳
-* Kubernetes deployment ☸️
-* CI/CD pipeline 🔄
-* Real-time log streaming
-
----
-
-## 🤝 Contributing
-
-Feel free to fork and improve!
+* Kubernetes Deployment
+* Real-Time Log Streaming
+* Multiple LLM Support
+* Authentication & Authorization
+* Grafana Integration
+* Cloud Deployment (AWS / Azure)
 
 ---
 
 ## 👨‍💻 Author
 
-B Siddardha
+**B Siddardha**
+
+AI Engineer | DevOps Engineer | MLOps Enthusiast
