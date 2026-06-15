@@ -291,4 +291,4 @@ The embedding model may need to download on the first run. Subsequent runs will 
 
 **B Siddardha**
 
-AI Engineer | DevOps Engineer | MLOps Enthusiast
+
