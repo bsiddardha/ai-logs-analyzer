@@ -28,6 +28,14 @@ def home():
     return FileResponse("frontend/index.html")
 
 # ------------------------
+# Health Check (Kubernetes liveness & readiness probes)
+# ------------------------
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
+
+# ------------------------
 # Upload Logs
 # ------------------------
 
