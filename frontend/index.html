@@ -390,7 +390,6 @@ nav{
 
 .meta-row{display:flex;justify-content:space-between;font-size:11px;}
 .char-count{color:var(--text3);}
-.char-count.warn{color:var(--amber);}
 
 .progress-bar{height:3px;border-radius:3px;background:var(--bg3);overflow:hidden;margin-top:4px;display:none;}
 .progress-bar.active{display:block;}
@@ -872,7 +871,6 @@ input[type=number]{-moz-appearance:textfield;}
           oninput="updateCharCount()" rows="8"></textarea>
         <div class="meta-row">
           <div class="char-count" id="charCount">0 chars</div>
-          <div style="font-size:11px;color:var(--text3)">Max 100KB</div>
         </div>
         <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
         <button class="btn-ingest" id="uploadBtn" onclick="upload()">⬆ &nbsp; Ingest Logs</button>
@@ -1160,7 +1158,6 @@ function updateCharCount(){
   const len=document.getElementById('logs').value.length;
   const el=document.getElementById('charCount');
   el.textContent=len.toLocaleString()+' chars';
-  el.className='char-count'+(len>80000?' warn':'');
 }
 
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}

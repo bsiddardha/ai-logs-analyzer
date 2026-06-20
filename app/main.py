@@ -60,6 +60,6 @@ def query_logs(request: QueryRequest):
         return {"answer": "No logs found"}
 
     context = "\n".join(results)
-    answer = analyze_logs(context)
+    answer = analyze_logs(context, request.query)
 
     return {"answer": answer}
